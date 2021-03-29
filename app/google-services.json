@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "383639979377",
+    "project_id": "videostatusapplicationlatest",
+    "storage_bucket": "videostatusapplicationlatest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383639979377:android:4ff0622b4902c3875d22d0",
+        "android_client_info": {
+          "package_name": "com.example.videostatususerlatest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "383639979377-bgsv4asmj05su60m88b7as47fl6ofjsp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXBuBJl1EqbnE_f4pVc-2E6JFtHUhI7WE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "383639979377-bgsv4asmj05su60m88b7as47fl6ofjsp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
