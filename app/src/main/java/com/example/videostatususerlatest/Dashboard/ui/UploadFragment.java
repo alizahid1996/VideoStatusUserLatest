@@ -3,6 +3,8 @@ package com.example.videostatususerlatest.Dashboard.ui;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,6 +36,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -88,7 +92,6 @@ public class UploadFragment extends Fragment {
         videoName = view.findViewById(R.id.et_video_name);
 
 
-
         Bundle bundle = getArguments();
         if (bundle != null)
         {
@@ -108,15 +111,13 @@ public class UploadFragment extends Fragment {
         Log.d("command", String.valueOf(command));
         Log.d("path", String.valueOf(path));
 
-        /*Intent i = getActivity().getIntent();
+        Intent i = getActivity().getIntent();
         if (i != null)
         {
             duration = i.getIntExtra("duration", 0);
             command = i.getStringArrayExtra("command");
             path = i.getStringExtra("destination");
-
-
-        }*/
+        }
 
         if (editText.equals("")) {
             Toast.makeText(getActivity(), "Please enter video name", Toast.LENGTH_SHORT).show();
@@ -143,11 +144,7 @@ public class UploadFragment extends Fragment {
             }
         });
 
-        Toast.makeText(ffMpegService, ""+originalPath, Toast.LENGTH_SHORT).show();
-
         return view;
-
-
 
     }
 
@@ -165,12 +162,10 @@ public class UploadFragment extends Fragment {
     }
 
     public void ChooseVideo(View view) {
-
         Intent intent = new Intent();
         intent.setType("video/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_VIDEO);
-
     }
 
     private String getExt(Uri uri) {
@@ -184,7 +179,6 @@ public class UploadFragment extends Fragment {
 
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
-
     }
 
     private void UploadVideo() {

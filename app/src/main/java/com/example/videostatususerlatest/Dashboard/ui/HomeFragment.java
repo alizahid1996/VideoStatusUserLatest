@@ -1,11 +1,14 @@
 package com.example.videostatususerlatest.Dashboard.ui;
 
 import android.app.AlertDialog;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -26,6 +30,8 @@ import com.example.videostatususerlatest.UplaodMovie;
 import com.example.videostatususerlatest.ViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -35,6 +41,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -55,6 +64,8 @@ public class HomeFragment extends Fragment {
     FirebaseUser currentUser;//used to store current user of account
     FirebaseAuth mAuth;
     String status;
+    Button downloadBtn;
+    Member member;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,9 +76,11 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
+
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("video");
         //ShowDialog(this);
+
 
 
         return v;
@@ -108,8 +121,8 @@ public class HomeFragment extends Fragment {
                             @Override
                             public void onItemLongClick(View view, int position) {
 
-                                name = getItem(position).getName();
-                                showDeleteDialog(name);
+                                url = getItem(position).getName();
+                                showDeleteDialog(url);
                             }
                         });
                     }
@@ -372,5 +385,7 @@ public class HomeFragment extends Fragment {
         });
 
     }*/
+
+
 
 }

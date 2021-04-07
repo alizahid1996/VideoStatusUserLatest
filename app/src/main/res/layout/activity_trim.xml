@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -28,7 +30,8 @@
         android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_90sdp"/>
+        android:layout_height="60dp">
+
 
     <TextView
         android:id="@+id/tvLeft"
@@ -51,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <org.florescu.android.rangeseekbar.RangeSeekBar
+        <org.florescu.android.rangeseekbar.RangeSeekBar
         android:layout_marginRight="17dp"
         rsb_indicator_text_color="#fff"
         rsb_progress_color="@color/colorPrimaryDark"
@@ -62,6 +65,8 @@
         android:id="@+id/seekbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    </RelativeLayout>
 
 
 
