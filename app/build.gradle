@@ -75,5 +75,8 @@ dependencies {
 
     implementation 'com.writingminds:FFmpegAndroid:0.3.2'
 
+    implementation 'com.arthenica:mobile-ffmpeg-full-gpl:4.4.LTS'
+
+
 
 }

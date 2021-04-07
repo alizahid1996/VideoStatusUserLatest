@@ -9,23 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoStatusUserLatest">
-        <activity android:name=".Dashboard.TrimActivity"></activity>
+        <activity android:name=".ProgressBarActivity"></activity>
+        <activity android:name=".Dashboard.TrimActivity" />
         <activity android:name=".UplaodActivity" />
         <activity
             android:name=".AboutActivity"
             android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
         <activity
             android:name=".FeedbackActivity"
-            android:theme="@style/Theme.VideoStatusUserLatest" />
+            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
         <activity
             android:name=".FullScreen"
-            android:theme="@style/Theme.VideoStatusUserLatest" />
+            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.VideoStatusUserLatest" />
+            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
         <activity
             android:name=".WelcomeActivity"
-            android:theme="@style/Theme.VideoStatusUserLatest">
+            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,21 +35,23 @@
         </activity>
         <activity
             android:name=".UplaodMovie"
-            android:theme="@style/Theme.VideoStatusUserLatest" />
+            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
         <activity
             android:name=".RegistrationActivity"
-            android:theme="@style/Theme.VideoStatusUserLatest" />
+            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
         <activity
             android:name=".Dashboard.UserProfile"
-            android:theme="@style/Theme.VideoStatusUserLatest" />
+            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
         <activity
             android:name=".Dashboard.Dashboard"
-            android:theme="@style/Theme.VideoStatusUserLatest" />
+            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.VideoStatusUserLatest" />
-
-        <service android:name=".FFMpegService"></service>
+            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
     </application>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

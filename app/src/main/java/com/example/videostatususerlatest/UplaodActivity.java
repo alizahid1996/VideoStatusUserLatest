@@ -1,11 +1,14 @@
 package com.example.videostatususerlatest;
 
+import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -34,7 +37,7 @@ import com.google.firebase.storage.UploadTask;
 public class UplaodActivity extends AppCompatActivity {
     private static final int PICK_VIDEO = 1;
     VideoView videoView;
-    Button button;
+    Button button, button2;
     TextView showVideo, chooseVideo, videoName;
     ProgressBar progressBar;
     EditText editText;
@@ -45,7 +48,6 @@ public class UplaodActivity extends AppCompatActivity {
     Member member;
     UploadTask uploadTask;
     FirebaseAuth auth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,11 +103,38 @@ public class UplaodActivity extends AppCompatActivity {
         if (requestCode == PICK_VIDEO || resultCode == RESULT_OK ||
                 data != null || data.getData() != null) {
             videoUri = data.getData();
-            videoView.setVideoURI(videoUri);
             Intent i = new Intent(UplaodActivity.this, TrimActivity.class);
             i.putExtra("uri", videoUri.toString());
             startActivity(i);
 
+
+
+            /*Toast to tell user not upload video < 15 sec
+            /*
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(UplaodActivity.this, videoUri);
+
+
+            String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+            long timeInMilliSec = Long.parseLong(time);
+            long duration = timeInMilliSec/1000;
+            long hours = duration / 3600;
+            long minutes = (duration - hours * 3600) / 60;
+            long seconds = duration - (hours * 3600 + minutes * 60);
+
+            if (seconds >= 15)
+            {
+                Toast.makeText(UplaodActivity.this, "You cannot upload a video more than 15 seconds", Toast.LENGTH_SHORT).show();
+                button.setClickable(false);
+                button.setText("Can't Upload");
+            }
+            else
+            {
+                videoView.setVideoURI(videoUri);
+                button.setClickable(true);
+                button.setText("Upload");
+            }
+*/
         }
 
     }

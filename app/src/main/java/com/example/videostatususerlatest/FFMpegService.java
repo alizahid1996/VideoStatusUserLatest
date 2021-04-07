@@ -149,6 +149,10 @@ public class FFMpegService extends Service {
         super();
     }
 
+    public void registerClient(Activity parent) {
+
+    }
+
     public class LocalBinder extends Binder
     {
         public FFMpegService getServiceInstance()

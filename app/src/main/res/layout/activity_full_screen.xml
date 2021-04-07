@@ -33,12 +33,12 @@
             android:layout_centerInParent="true"
             android:textStyle="bold"/>
 
-
     </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,35 +55,44 @@
                 android:textColorHint="#FFFFFF"
                 android:textSize="18sp" />
 
+
+
             <com.google.android.exoplayer2.ui.PlayerView
-                android:id="@+id/exoplayer_fullscreen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_fullscreen"
-                app:controller_layout_id="@layout/exoplayer_custom_controls"
-                app:resize_mode="fit" />
+                    android:id="@+id/exoplayer_fullscreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_fullscreen"
+                    app:controller_layout_id="@layout/exoplayer_custom_controls"
+                    app:resize_mode="fit" />
 
         </LinearLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/downloadBtn"
+                    android:layout_marginTop="550dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_download"
+                    android:layout_marginRight="30dp"
+                    android:layout_gravity="right"
+                     />
+
+            </FrameLayout>
+
+
+
+        </FrameLayout>
+
     </FrameLayout>
 
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/downloadBtn"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/ic_download"
-            android:background="@drawable/download_bg"
-            android:layout_marginRight="30dp"
-            android:layout_gravity="right"
-            android:layout_marginTop="-200dp"
-            app:fabSize="mini" />
-
-    </FrameLayout>
 
 
 

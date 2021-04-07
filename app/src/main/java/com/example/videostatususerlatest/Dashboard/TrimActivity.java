@@ -19,6 +19,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,15 +28,26 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.arthenica.mobileffmpeg.Config;
+import com.arthenica.mobileffmpeg.ExecuteCallback;
+import com.arthenica.mobileffmpeg.FFmpeg;
+import com.arthenica.mobileffmpeg.LogCallback;
+import com.arthenica.mobileffmpeg.LogMessage;
+import com.arthenica.mobileffmpeg.Statistics;
+import com.arthenica.mobileffmpeg.StatisticsCallback;
 import com.example.videostatususerlatest.Dashboard.ui.UploadFragment;
+import com.example.videostatususerlatest.ProgressBarActivity;
 import com.example.videostatususerlatest.R;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class TrimActivity extends AppCompatActivity {
 
@@ -102,9 +114,10 @@ public class TrimActivity extends AppCompatActivity {
                 tvleft.setText("00:00:00");
                 tvRight.setText(getTime(mp.getDuration() / 1000));
                 mp.setLooping(true);
-                rangeSeekbar.setRangeValues(0, 30);
-                rangeSeekbar.setSelectedMaxValue(30);
+                rangeSeekbar.setRangeValues(0, duration);
+                rangeSeekbar.setSelectedMaxValue(duration);
                 rangeSeekbar.setSelectedMinValue(0);
+                rangeSeekbar.setEnabled(true);
 
                 rangeSeekbar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
                     @Override
@@ -121,8 +134,10 @@ public class TrimActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if (videoView.getCurrentPosition() >= rangeSeekbar.getSelectedMaxValue()
-                                .intValue() * 1000) ;
-                        videoView.seekTo(rangeSeekbar.getSelectedMinValue().intValue() * 1000);
+                                .intValue() * 1000) {
+                            videoView.seekTo(rangeSeekbar.getSelectedMinValue().intValue() * 1000);
+                        }
+
 
                     }
                 }, 1000);
@@ -171,8 +186,16 @@ public class TrimActivity extends AppCompatActivity {
                     filePrefix = input.getText().toString();
                     trimVideo(rangeSeekbar.getSelectedMinValue().intValue() * 1000,
                             rangeSeekbar.getSelectedMaxValue().intValue() * 1000, filePrefix);
+                    Intent i = new Intent(TrimActivity.this, ProgressBarActivity.class);
+                    i.putExtra("duration", duration);
+                    i.putExtra("command", command);
+                    i.putExtra("destination", dest.getAbsolutePath());
+                    startActivity(i);
+                    finish();
+                    dialog.dismiss();
 
-                    Bundle bundle = new Bundle();
+
+                    /*Bundle bundle = new Bundle();
                     bundle.putInt("duration", 0);
                     bundle.putStringArray("destination", new String[]{dest.toString()});
                     UploadFragment uploadFragment = new UploadFragment();
@@ -182,15 +205,13 @@ public class TrimActivity extends AppCompatActivity {
                     transaction.add(R.id.fragmentContainer, new UploadFragment(), "");
                     transaction.addToBackStack(null);
                     transaction.commit();
-                    dialog.dismiss();
+                    dialog.dismiss();*/
 
                    /* Intent i = new Intent(TrimActivity.this, UploadFragment.class);
                     i.putExtra("duration", duration);
                     i.putExtra("command", command);
                     i.putExtra("destination", dest);
                     startActivity(i);*/
-
-
                 }
             });
 
@@ -213,10 +234,14 @@ public class TrimActivity extends AppCompatActivity {
         dest = new File(folder, filePrefix + fileExt);
         originalPath = getRealPathFromUri(getApplicationContext(), uri);
 
-        duration = (endMs - startMs) / 100;
+        duration = (endMs - startMs) / 1000;
         command = new String[]{"-ss", "" + startMs / 1000, "-y", "-i", originalPath, "-t", ""
                 + (endMs - startMs) / 1000, "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "-48000",
                 "-ac", "2", "-ar", "22050", dest.getAbsolutePath()};
+
+       // execFFMpegBinary(command);
+
+        Toast.makeText(this, "Video Trimmed Successfully", Toast.LENGTH_SHORT).show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -250,4 +275,45 @@ public class TrimActivity extends AppCompatActivity {
         inflater.inflate(R.menu.trim, menu);
         return true;
     }
+
+   /* private void execFFMpegBinary(String[] command) {
+        Config.enableLogCallback(new LogCallback() {
+            @Override
+            public void apply(LogMessage message) {
+                Log.e(Config.TAG, message.getText());
+
+            }
+        });
+
+        Config.enableStatisticsCallback(new StatisticsCallback() {
+            @Override
+            public void apply(Statistics statistics) {
+                Log.e(Config.TAG, String.format("frame %d, time: %d" , statistics.getVideoFrameNumber(), statistics.getTime()));
+
+
+            }
+        });
+
+        long executionId = FFmpeg.executeAsync(command, new ExecuteCallback() {
+            @Override
+            public void apply(long executionId, int returnCode) {
+                if (returnCode == Config.RETURN_CODE_SUCCESS)
+                {
+                    Log.d(Config.TAG, "finished command: ffmpeg" + Arrays.toString(command));
+
+                }
+                else if (returnCode == RESULT_CANCELED)
+                {
+                    Log.d(Config.TAG, "Async commadn execution canceled by user" + Arrays.toString(command));
+                }
+                else {
+                    Log.e(Config.TAG, String.format("Aysnc command execution failed with returned code = %d", returnCode));
+
+                }
+
+            }
+        });
+    }*/
+
+
 }
