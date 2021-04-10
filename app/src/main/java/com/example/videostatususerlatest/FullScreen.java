@@ -1,12 +1,14 @@
 package com.example.videostatususerlatest;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +39,7 @@ public class FullScreen extends AppCompatActivity {
     private SimpleExoPlayer player;
     private PlayerView playerView;
     TextView textView;
+    private ProgressDialog progressDialog;
     ImageView backButton;
     boolean fullscreen = false;
     ImageView fullscreenButton;
@@ -58,24 +61,27 @@ public class FullScreen extends AppCompatActivity {
         backButton = findViewById(R.id.ivBackButton);
         buttonDownload =findViewById(R.id.downloadBtn);
 
-
         fullscreenButton = playerView.findViewById(R.id.exoplayer_fullscreen_icon);
 
+        //Back Button
         backButton.setOnClickListener(view -> {
             finish();
         });
 
+        //Download Button
         buttonDownload.setOnClickListener(view -> {
             Toast.makeText(FullScreen.this, "Starting Download......", Toast.LENGTH_SHORT).show();
             download(member);
         });
 
+        //Get Intent
         Intent intent = getIntent();
         url = intent.getExtras().getString("ur");
         title = intent.getExtras().getString("nam");
 
         textView.setText(title);
 
+        //Full Screen Button
         fullscreenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +119,7 @@ public class FullScreen extends AppCompatActivity {
         });
     }
 
+    //Download Video
     private void download(Member member) {
 
         String videoUrl = url;
@@ -152,8 +159,6 @@ public class FullScreen extends AppCompatActivity {
         });
     }
 
-
-
     private MediaSource buildMediaSource(Uri uri){
         DataSource.Factory datasourcefactory =
                 new DefaultHttpDataSourceFactory("video");
@@ -174,7 +179,7 @@ public class FullScreen extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+//        ShowDialog(FullScreen.this);
         if (Util.SDK_INT >= 26 ){
             initializeplayer();
         }
@@ -183,9 +188,10 @@ public class FullScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //DismissDialog();
 
         if (Util.SDK_INT >= 26 || player == null ){
-            //  initializeplayer();
+              initializeplayer();
              //startPlayer();
         }
     }
@@ -229,11 +235,6 @@ public class FullScreen extends AppCompatActivity {
             player = null;
         }
     }
-
-
-
-
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -246,9 +247,16 @@ public class FullScreen extends AppCompatActivity {
         finish();
     }
 
+    public void ShowDialog(Context context) {
+        //setting up progress dialog
+        progressDialog = new ProgressDialog(context);
+        progressDialog.show();
+        progressDialog.setContentView(R.layout.progress_dialog);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+    }
 
-
-
-
-
+    /*public void DismissDialog() {
+        progressDialog.dismiss();
+    }*/
 }

@@ -6,8 +6,10 @@ import android.net.Uri;
 import android.util.EventLog;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.videostatususerlatest.Models.Member;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
@@ -37,6 +39,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     SimpleExoPlayer exoPlayer;
     PlayerView playerView;
+    ImageView imageView;
     private Context context;
     EventListener listener;
     AdaptiveTrackSelection.Factory factory;
@@ -73,6 +76,8 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
 
+
+
     public void setExoplayer(Application application, String name, String Videourl) {
 
         TextView textView = itemView.findViewById(R.id.tv_item_name);
@@ -91,11 +96,11 @@ public class ViewHolder extends RecyclerView.ViewHolder {
             MediaSource mediaSource = new ExtractorMediaSource(video, dataSourceFactory, extractorsFactory, null, null);
             playerView.setPlayer(exoPlayer);
             exoPlayer.prepare(mediaSource);
-            exoPlayer.getPlayWhenReady();
             exoPlayer.setPlayWhenReady(false);
+            /*exoPlayer.getPlayWhenReady();
             exoPlayer.getPlaybackState();
             exoPlayer.removeListener((Player.EventListener) listener);
-            exoPlayer.release();
+            exoPlayer.release();*/
 
 /*
             if (playerView!=null ){
@@ -130,5 +135,12 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         mClickListener = clicklistener;
     }
 
+    /*//Load Thumbnail
+    public void getVideoThumbnail(String videoUrl, Context context)
+    {
+        imageView = itemView.findViewById(R.id.playerView);
+        Glide.with(context).asBitmap().load(videoUrl).into(imageView);
+    }
+*/
 
 }

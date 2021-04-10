@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.example.videostatususerlatest.AboutActivity;
 import com.example.videostatususerlatest.FeedbackActivity;
 import com.example.videostatususerlatest.FullScreen;
@@ -78,7 +79,6 @@ public class HomeFragment extends Fragment {
     FirebaseUser currentUser;//used to store current user of account
     FirebaseAuth mAuth;
     String status;
-    Button downloadBtn;
     Member member;
 
     @Override
@@ -205,7 +205,6 @@ public class HomeFragment extends Fragment {
                                 intent.putExtra("ur", url);
                                 startActivity(intent);
 
-
                             }
 
                             @Override
@@ -231,9 +230,7 @@ public class HomeFragment extends Fragment {
         firebaseRecyclerAdapter.startListening();
         recyclerView.setAdapter(firebaseRecyclerAdapter);
 
-
     }
-
 
     private void showDeleteDialog(String name) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -275,7 +272,6 @@ public class HomeFragment extends Fragment {
         alertDialog.show();
     }
 
-
     /*
        To handle the click of option menu items
     */
@@ -301,17 +297,13 @@ public class HomeFragment extends Fragment {
         return true;
     }
 
-    /*
-        Closes the enitre application
-     */
+    //Close the app
     private void closeApplication() {
         getActivity().finishAffinity();
         System.exit(0);
     }
 
-    /*
-        To Logout from the application and not Close.
-     */
+    //Logout
     private void logoutItemClick() {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -320,25 +312,19 @@ public class HomeFragment extends Fragment {
         sendToLoginActivity();
     }
 
-    /*
-        To send user to the login page.
-     */
+    //Goto Login Screen
     private void sendToLoginActivity() {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         startActivity(intent);
     }
 
-    /*
-        Send user to the feedback page.
-     */
+    //Goto Feedback Screen
     private void feedbackItemClicked() {
         Intent intent = new Intent(getActivity(), FeedbackActivity.class);
         startActivity(intent);
     }
 
-    /*
-        Show the team details to the user.
-     */
+    //About Screen
     private void aboutItemClicked() {
         Intent intent = new Intent(getActivity(), AboutActivity.class);
         startActivity(intent);
@@ -348,9 +334,9 @@ public class HomeFragment extends Fragment {
     private void updatemovieClicked() {
         Intent intent = new Intent(getActivity(), UplaodMovie.class);
         startActivity(intent);
-
     }
 
+    //Custom Progress Dialog
     public void ShowDialog(Context context) {
         //setting up progress dialog
         progressDialog = new ProgressDialog(context);
