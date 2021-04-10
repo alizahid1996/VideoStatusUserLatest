@@ -7,6 +7,7 @@ import android.util.EventLog;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
 import com.example.videostatususerlatest.Models.Member;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
@@ -32,7 +33,7 @@ import java.util.EventListener;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ViewHolder extends RecyclerView.ViewHolder{
+public class ViewHolder extends RecyclerView.ViewHolder {
 
     SimpleExoPlayer exoPlayer;
     PlayerView playerView;
@@ -53,7 +54,7 @@ public class ViewHolder extends RecyclerView.ViewHolder{
             @Override
             public void onClick(View view) {
 
-                mClickListener.onItemClick(view,getAdapterPosition());
+                mClickListener.onItemClick(view, getAdapterPosition());
 
             }
         });
@@ -61,7 +62,7 @@ public class ViewHolder extends RecyclerView.ViewHolder{
             @Override
             public boolean onLongClick(View view) {
 
-                mClickListener.onItemLongClick(view,getAdapterPosition());
+                mClickListener.onItemLongClick(view, getAdapterPosition());
                 return false;
             }
         });
@@ -72,13 +73,12 @@ public class ViewHolder extends RecyclerView.ViewHolder{
     }
 
 
-    public void setExoplayer(Application application , String name, String Videourl){
+    public void setExoplayer(Application application, String name, String Videourl) {
 
         TextView textView = itemView.findViewById(R.id.tv_item_name);
         playerView = itemView.findViewById(R.id.exoplayer_item);
 
         textView.setText(name);
-
 
 
         try {
@@ -88,14 +88,14 @@ public class ViewHolder extends RecyclerView.ViewHolder{
             Uri video = Uri.parse(Videourl);
             DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("video");
             ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-            MediaSource mediaSource = new ExtractorMediaSource(video,dataSourceFactory,extractorsFactory,null,null);
+            MediaSource mediaSource = new ExtractorMediaSource(video, dataSourceFactory, extractorsFactory, null, null);
             playerView.setPlayer(exoPlayer);
             exoPlayer.prepare(mediaSource);
-           //exoPlayer.getPlayWhenReady();
-           exoPlayer.setPlayWhenReady(false);
-           //exoPlayer.getPlaybackState();
-            //exoPlayer.removeListener((Player.EventListener) listener);
-            //exoPlayer.release();
+            exoPlayer.getPlayWhenReady();
+            exoPlayer.setPlayWhenReady(false);
+            exoPlayer.getPlaybackState();
+            exoPlayer.removeListener((Player.EventListener) listener);
+            exoPlayer.release();
 
 /*
             if (playerView!=null ){
@@ -110,27 +110,25 @@ public class ViewHolder extends RecyclerView.ViewHolder{
             }*/
 
 
-        }catch (Exception e){
-            Log.e("ViewHolder","exoplayer error"+e.toString());
+        } catch (Exception e) {
+            Log.e("ViewHolder", "exoplayer error" + e.toString());
         }
 
 
     }
 
 
-
-
     private ViewHolder.Clicklistener mClickListener;
-    public interface Clicklistener{
+
+    public interface Clicklistener {
         void onItemClick(View view, int position);
-        void onItemLongClick(View view , int position);
+
+        void onItemLongClick(View view, int position);
     }
 
-    public void setOnClicklistener(ViewHolder.Clicklistener clicklistener){
+    public void setOnClicklistener(ViewHolder.Clicklistener clicklistener) {
         mClickListener = clicklistener;
     }
-
-
 
 
 }

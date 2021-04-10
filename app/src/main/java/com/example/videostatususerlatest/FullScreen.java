@@ -70,9 +70,6 @@ public class FullScreen extends AppCompatActivity {
             download(member);
         });
 
-
-
-
         Intent intent = getIntent();
         url = intent.getExtras().getString("ur");
         title = intent.getExtras().getString("nam");
@@ -189,7 +186,17 @@ public class FullScreen extends AppCompatActivity {
 
         if (Util.SDK_INT >= 26 || player == null ){
             //  initializeplayer();
+             //startPlayer();
         }
+    }
+
+    /*private void pausePlayer(){
+        player.setPlayWhenReady(false);
+        player.getPlaybackState();
+    }*/
+    private void startPlayer(){
+        player.setPlayWhenReady(true);
+        player.getPlaybackState();
     }
 
     @Override
@@ -198,6 +205,7 @@ public class FullScreen extends AppCompatActivity {
 
         if (Util.SDK_INT > 26 ){
             releasePlayer();
+
         }
 
     }
@@ -208,6 +216,7 @@ public class FullScreen extends AppCompatActivity {
 
         if (Util.SDK_INT >= 26 ){
             releasePlayer();
+
         }
     }
 
@@ -216,9 +225,14 @@ public class FullScreen extends AppCompatActivity {
             playwhenready = player.getPlayWhenReady();
             playbackposition = player.getCurrentPosition();
             currentWindow = player.getCurrentWindowIndex();
+            player.setPlayWhenReady(false);
             player = null;
         }
     }
+
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -231,4 +245,10 @@ public class FullScreen extends AppCompatActivity {
         setResult(RESULT_OK,intent);
         finish();
     }
+
+
+
+
+
+
 }
