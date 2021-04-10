@@ -103,17 +103,13 @@ public class UplaodActivity extends AppCompatActivity {
         if (requestCode == PICK_VIDEO || resultCode == RESULT_OK ||
                 data != null || data.getData() != null) {
             videoUri = data.getData();
-            Intent i = new Intent(UplaodActivity.this, TrimActivity.class);
+            /*Intent i = new Intent(UplaodActivity.this, TrimActivity.class);
             i.putExtra("uri", videoUri.toString());
-            startActivity(i);
+            startActivity(i);*/
 
-
-
-            /*Toast to tell user not upload video < 15 sec
-            /*
+            /*Toast to tell user not upload video < 15 sec*/
             MediaMetadataRetriever retriever = new MediaMetadataRetriever();
             retriever.setDataSource(UplaodActivity.this, videoUri);
-
 
             String time = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
             long timeInMilliSec = Long.parseLong(time);
@@ -122,9 +118,9 @@ public class UplaodActivity extends AppCompatActivity {
             long minutes = (duration - hours * 3600) / 60;
             long seconds = duration - (hours * 3600 + minutes * 60);
 
-            if (seconds >= 15)
+            if (seconds >= 30)
             {
-                Toast.makeText(UplaodActivity.this, "You cannot upload a video more than 15 seconds", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UplaodActivity.this, "You cannot upload a video more than 30 seconds", Toast.LENGTH_SHORT).show();
                 button.setClickable(false);
                 button.setText("Can't Upload");
             }
@@ -134,7 +130,6 @@ public class UplaodActivity extends AppCompatActivity {
                 button.setClickable(true);
                 button.setText("Upload");
             }
-*/
         }
 
     }
