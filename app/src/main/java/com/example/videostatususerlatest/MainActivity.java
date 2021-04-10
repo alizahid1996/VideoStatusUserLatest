@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.example.videostatususerlatest.Models.Member;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,8 +37,12 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
+    ViewHolder viewHolder;
     FirebaseDatabase database;
+    public SimpleExoPlayer exoPlayer;
     String name,url;
+    PlayerView playerView;
+    View view;
     private ProgressDialog progressDialog;
     FirebaseUser currentUser;//used to store current user of account
     FirebaseAuth mAuth;//Used for firebase authentication
@@ -53,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("video");
         //ShowDialog(this);
+
+        viewHolder = new ViewHolder(view);
 
 
     }
@@ -312,5 +320,6 @@ public class MainActivity extends AppCompatActivity {
     public void DismissDialog() {
         progressDialog.dismiss();
     }
+
 
 }
