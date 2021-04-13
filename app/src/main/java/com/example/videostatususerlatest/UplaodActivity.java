@@ -23,6 +23,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.videostatususerlatest.Dashboard.TrimActivity;
+import com.example.videostatususerlatest.Models.MediaObject;
 import com.example.videostatususerlatest.Models.Member;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,7 +46,8 @@ public class UplaodActivity extends AppCompatActivity {
     MediaController mediaController;
     StorageReference storageReference;
     DatabaseReference databaseReference;
-    Member member;
+    /*Member member;*/
+    MediaObject mediaObject;
     UploadTask uploadTask;
     FirebaseAuth auth;
 
@@ -54,7 +56,8 @@ public class UplaodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uplaod);
 
-        member = new Member();
+        /*member = new Member();*/
+        mediaObject = new MediaObject();
         storageReference = FirebaseStorage.getInstance().getReference("Video");
         databaseReference = FirebaseDatabase.getInstance().getReference("video");
         auth = FirebaseAuth.getInstance();
@@ -187,13 +190,15 @@ public class UplaodActivity extends AppCompatActivity {
                                 progressBar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(UplaodActivity.this, "Data saved", Toast.LENGTH_SHORT).show();
 
-                                member.setName(videoName);
-                                member.setVideourl(downloadUrl.toString());
-                                member.setSearch(search);
-                                member.setUserId(auth.getCurrentUser().getUid());
-                                member.setStatus("pending");
+                                mediaObject.setTitle(videoName);
+                                mediaObject.setMedia_url(downloadUrl.toString());
+                                //mediaObject.setDescription(downloadUrl.toString());
+                                mediaObject.setThumbnail(downloadUrl.toString());
+                                /*member.setSearch(search);*/
+                                /*mediaObject.setUserId(auth.getCurrentUser().getUid());*/
+                                /*member.setStatus("pending");*/
                                 String i = databaseReference.push().getKey();
-                                databaseReference.child(i).setValue(member);
+                                databaseReference.child(i).setValue(mediaObject);
                             } else {
                                 Toast.makeText(UplaodActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                             }

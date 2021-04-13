@@ -27,11 +27,7 @@
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".UplaodMovie"
@@ -47,7 +43,14 @@
             android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" />
+            android:theme="@style/Theme.VideoStatusUserLatest.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

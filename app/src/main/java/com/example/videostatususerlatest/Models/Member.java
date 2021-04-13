@@ -57,4 +57,5 @@ public class Member {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
 }
